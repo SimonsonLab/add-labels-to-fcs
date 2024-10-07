@@ -15,18 +15,20 @@ import flowkit as fk
 def return_FCS_as_compensated_dataframe(fcs_file_path):
     '''
     Read the FCS file, and if there is a SPILL matrix in the metadata, apply the matrix as the compensation matrix.
+    Return events as a pandas dataframe.
     '''
 
     sample = fk.Sample(fcs_file_path, cache_original_events=True)
     metadata = sample.get_metadata()
 
     #If SPILL is present in metadata:
+    if 'spill' in metadata:
+        sample.apply_compensation(metadata['spill'])
+        events_df = sample.as_dataframe(source='comp')
+    else:
+        events_df = sample.as_dataframe(source='raw')
 
-
-    #Else:    
-    events_not_transformed = sample.as_dataframe(source='raw')
-
-    return events_not_transformed
+    return events_df
 
 
 def write_dataframe_as_FCS_file(dataframe, new_fcs_file_path):
