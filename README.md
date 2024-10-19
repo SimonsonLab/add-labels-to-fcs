@@ -26,4 +26,7 @@ from add-labels-to-fcs import add_labels
 
 
 
+## See Also
+
+For example R code for adding additional columns to FCS files, see the R studio notebook file at https://github.com/SimonsonLab/2021_Next_Gen_Flow_Lecture.
 
