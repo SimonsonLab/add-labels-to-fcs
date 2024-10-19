@@ -47,12 +47,18 @@ def write_dataframe_as_FCS_file(dataframe, new_fcs_file_path):
 
 def return_spreadsheet_as_dataframe(spreadsheet_file_path):
     '''
-    Open Excel file and return pandas dataframe.
+    Open Excel file or csv file and return pandas dataframe.
     '''
-    new_dataframe = pd.read_excel(Path(spreadsheet_file_path))
-
-    return new_dataframe
+    #print(Path(spreadsheet_file_path).suffix)
     
+    if Path(spreadsheet_file_path).suffix == ".xlsx":
+        #print("Spreadsheet file is xlsx type.\n")
+        new_dataframe = pd.read_excel(Path(spreadsheet_file_path))
+        return new_dataframe
+    if Path(spreadsheet_file_path).suffix == ".csv":
+        new_dataframe = pd.read_csv(Path(spreadsheet_file_path))
+        return new_dataframe
+    return -1 #Return error code.
 
 def return_xy_nodes_for_visualization(dataframe, nodes_per_row=10, min_x = 10000, max_x = 200000):
     '''
